@@ -51,6 +51,16 @@ class HassAgentNotificationService(BaseNotificationService):
             'message': message,
             'priority': data.get('priority', 5)
         }
+
+        if 'image' in data or 'click_url' in data:
+            payload['extras'] = {
+                'client::notification': {}
+            }
+            if 'image' in data:
+                payload['extras']['client::notification']['bigImageUrl'] = data.get('image')
+            if 'click_url' in data:
+                payload['extras']['client::notification']['click'] = data.get('click_url')
+
         if 'extras' in data:
             payload['extras'] = data.get('extras')
         
