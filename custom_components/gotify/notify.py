@@ -50,16 +50,30 @@ class HassAgentNotificationService(BaseNotificationService):
             'title': title,
             'message': message,
             'priority': data.get('priority', 5)
-        }
-
-        if 'image' in data or 'click_url' in data:
-            payload['extras'] = {
-                'client::notification': {}
+            'extras': {
+                'client::display': {
+                    'contentType': 'text/markdown'
+                },
+                'client::notification': {},
+                'android::action': {}
             }
-            if 'image' in data:
-                payload['extras']['client::notification']['bigImageUrl'] = data.get('image')
-            if 'click_url' in data:
-                payload['extras']['client::notification']['click'] = data.get('click_url')
+        }
+        
+        if 'content_type' id data:
+            payload['extras']['client::display']['contentType'] = data.get('content_type')
+        
+        if 'image' in data:
+            payload['extras']['client::notification']['bigImageUrl'] = data.get('image')
+        
+        if 'click_url' in data:
+            payload['extras']['client::notification']['click'] = {
+                'url': data.get('click_url')
+            }
+            
+        if 'android_intentUrl' in data:
+            payload['extras']['android::action']['onReceive'] = {
+                'intentUrl': data.get('android_intentUrl')
+            }
 
         if 'extras' in data:
             payload['extras'] = data.get('extras')
