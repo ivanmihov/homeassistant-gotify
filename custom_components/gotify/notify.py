@@ -64,6 +64,8 @@ class HassAgentNotificationService(BaseNotificationService):
 
         if 'image' in data:
             payload['extras']['client::notification']['bigImageUrl'] = data.get('image')
+            if payload['extras']['client::display']['contentType'] == 'text/markdown':
+                payload['message'] = message + ' ![](' + data.get('image') +')'
 
         if 'click_url' in data:
             payload['extras']['client::notification']['click'] = {
