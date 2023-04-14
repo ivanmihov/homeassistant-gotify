@@ -49,7 +49,7 @@ class HassAgentNotificationService(BaseNotificationService):
         payload = {
             'title': title,
             'message': message,
-            'priority': data.get('priority', 5)
+            'priority': data.get('priority', 5),
             'extras': {
                 'client::display': {
                     'contentType': 'text/markdown'
