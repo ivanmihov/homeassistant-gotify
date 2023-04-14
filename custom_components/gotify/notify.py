@@ -59,7 +59,7 @@ class HassAgentNotificationService(BaseNotificationService):
             }
         }
         
-        if 'content_type' id data:
+        if 'content_type' in data:
             payload['extras']['client::display']['contentType'] = data.get('content_type')
         
         if 'image' in data:
