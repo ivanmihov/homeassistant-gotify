@@ -58,18 +58,18 @@ class HassAgentNotificationService(BaseNotificationService):
                 'android::action': {}
             }
         }
-        
+
         if 'content_type' in data:
             payload['extras']['client::display']['contentType'] = data.get('content_type')
-        
+
         if 'image' in data:
             payload['extras']['client::notification']['bigImageUrl'] = data.get('image')
-        
+
         if 'click_url' in data:
             payload['extras']['client::notification']['click'] = {
                 'url': data.get('click_url')
             }
-            
+
         if 'android_intentUrl' in data:
             payload['extras']['android::action']['onReceive'] = {
                 'intentUrl': data.get('android_intentUrl')
@@ -77,7 +77,7 @@ class HassAgentNotificationService(BaseNotificationService):
 
         if 'extras' in data:
             payload['extras'] = data.get('extras')
-        
+
         _LOGGER.debug('Sending message to gotify: %s', payload)
 
         try:
